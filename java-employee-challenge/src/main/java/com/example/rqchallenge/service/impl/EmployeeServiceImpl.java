@@ -29,6 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	private final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
+	@Override
 	public List<Employee> getAllEmployeeList() {
 		logger.debug("EmployeeService|getAllEmployeeList|Entry");
 		Mono<EmployeeListResponseDTO> employeeMono = webClient.get().uri(ApiConstants.REST_API_URI_GET_ALL_EMPLOYEES)
@@ -38,6 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeMono.block().getData();
 	}
 
+	@Override
 	public Employee getEmployeeById(String id) {
 		logger.debug("EmployeeService|getEmployeeById|Entry");
 
@@ -50,6 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeMono.block().getData();
 	}
 
+	@Override
 	public List<Employee> getEmployeeBySearchName(String searchString) {
 		logger.debug("EmployeeService|getEmployeeBySearchName|Entry");
 
@@ -61,6 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 				.collect(Collectors.toList());
 	}
 
+	@Override
 	public Integer getHighestSalaryOfEmployee() {
 		logger.debug("EmployeeService|getHighestSalaryOfEmployee|Entry");
 
@@ -70,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeList.stream().map(emp -> emp.getEmployeeSalary()).mapToInt(Integer::parseInt).max().getAsInt();
 	}
 
+	@Override
 	public List<String> getTopTenHighestEarningEmployeeNames() {
 		logger.debug("EmployeeService|getTopTenHighestEarningEmployeeNames|Entry");
 
@@ -80,6 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeList.stream().sorted().map(emp -> emp.getEmployeeName()).limit(10).collect(Collectors.toList());
 	}
 
+	@Override
 	public Object createEmployee(Map<String, Object> employeeInput) {
 		logger.debug("EmployeeService|createEmployee|Entry");
 
@@ -92,6 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeMono;
 	}
 
+	@Override
 	public Object deleteEmployee(String id) {
 		logger.debug("EmployeeService|deleteEmployee|Entry");
 
@@ -103,5 +110,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 		return employeeMono;
 	}
+
+	
 
 }
